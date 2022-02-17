@@ -1,3 +1,3 @@
 # Hours-Alpha-BE
 
-Spravujem Martinekk!
+Spravuje Martinekk!
