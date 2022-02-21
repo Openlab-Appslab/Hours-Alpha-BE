@@ -22,6 +22,9 @@ public class Company {
             strategy = SEQUENCE,
             generator = "company_sequence"
     )
+    @Column(
+            updatable = false
+    )
     private Long id;
 
     @OneToOne(mappedBy = "company")
