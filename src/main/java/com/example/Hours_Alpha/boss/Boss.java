@@ -1,5 +1,7 @@
 package com.example.Hours_Alpha.boss;
 
+import com.example.Hours_Alpha.company.Company;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,9 +9,9 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(
-         name="boss",
+        name = "boss",
         uniqueConstraints = {
-                 @UniqueConstraint(name = "boss_email_unique", columnNames = "email")
+                @UniqueConstraint(name = "boss_email_unique", columnNames = "email")
         }
 )
 public class Boss {
@@ -25,13 +27,14 @@ public class Boss {
             generator = "boss_sequence"
     )
     @Column(
+            name = "id",
             updatable = false
     )
     private Long id;
 
     @Column(
-            name = "email",
-            columnDefinition = "text",
+           name = "email",
+           columnDefinition = "text",
             nullable = false
     )
     private String email;
@@ -44,19 +47,18 @@ public class Boss {
     private String password;
 
     @Column(
-            name = "firstName",
+            name = "first_name",
             columnDefinition = "text",
             nullable = false
     )
     private String firstName;
 
     @Column(
-            name = "lastName",
+            name = "last_name",
             columnDefinition = "text",
             nullable = false
     )
     private String lastName;
-
 
     @Column(
             name = "dob",
@@ -65,24 +67,25 @@ public class Boss {
     )
     private LocalDate dob;
 
-
-    @Column(
-            name = "company",
-            columnDefinition = "company",
-            nullable = false
+    @OneToOne(
+            cascade = CascadeType.ALL
     )
-    private Company nameOfCompany;
+    @JoinColumn(
+            name = "company_id",
+            referencedColumnName = "id"
+    )
+    private Company company;
 
     public Boss() {
     }
 
-    public Boss(String email, String password, String firstName, String lastName, LocalDate dob, Company nameOfCompany) {
+    public Boss(String email, String password, String firstName, String lastName, LocalDate dob, Company company) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
-        this.nameOfCompany = nameOfCompany;
+        this.company = company;
     }
 
     public Long getId() {
@@ -133,11 +136,4 @@ public class Boss {
         this.dob = dob;
     }
 
-    public Company getNameOfCompany() {
-        return nameOfCompany;
-    }
-
-    public void setNameOfCompany(Company nameOfCompany) {
-        this.nameOfCompany = nameOfCompany;
-    }
 }
