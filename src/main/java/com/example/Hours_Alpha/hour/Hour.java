@@ -1,5 +1,8 @@
 package com.example.Hours_Alpha.hour;
 
+import com.example.Hours_Alpha.employee.Employee;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.time.LocalDate;
@@ -59,6 +62,16 @@ public class Hour {
             columnDefinition = "double"
     )
     private String Note;
+
+    @JsonIgnore
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "hour_id",
+            referencedColumnName = "id"
+    )
+    private Employee employee;
 
     public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String issue, String note) {
         this.sumOfHour = sumOfHour;

@@ -1,4 +1,6 @@
 package com.example.Hours_Alpha.hour;
 
-public interface IHourRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IHourRepository extends JpaRepository<Hour, Long> {
 }
