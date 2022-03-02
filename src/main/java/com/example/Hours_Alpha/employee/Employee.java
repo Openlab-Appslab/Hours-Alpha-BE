@@ -13,7 +13,10 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(
-        name = "employee"
+        name = "employee",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "employee_email_unique", columnNames = "email")
+        }
 )
 public class Employee {
 
