@@ -57,11 +57,20 @@ public abstract class User implements UserDetails {
     )
     private String telephone;
 
-    public User(String email, String firstName, String lastName, String telephone) {
+    @Enumerated
+    @Column(
+            name = "role",
+            columnDefinition = "enum",
+            nullable = false
+    )
+    private UserRoles userRoles;
+
+    public User(String email, String firstName, String lastName, String telephone, UserRoles userRoles) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephone = telephone;
+        this.userRoles = userRoles;
     }
 
     @Override
