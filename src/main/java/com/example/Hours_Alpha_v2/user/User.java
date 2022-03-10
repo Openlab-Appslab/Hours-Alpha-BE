@@ -31,37 +31,31 @@ public abstract class User implements UserDetails {
 
     @Column(
             name = "email",
-            columnDefinition = "text",
-            nullable = false
+            columnDefinition = "text"
     )
     private String email;
 
     @Column(
             name = "first_name",
-            columnDefinition = "text",
-            nullable = false
+            columnDefinition = "text"
     )
     private String firstName;
 
     @Column(
             name = "last_name",
-            columnDefinition = "text",
-            nullable = false
+            columnDefinition = "text"
     )
     private String lastName;
 
     @Column(
             name = "telephone",
-            columnDefinition = "long",
-            nullable = false
+            columnDefinition = "text"
     )
     private String telephone;
 
     @Enumerated
     @Column(
-            name = "role",
-            columnDefinition = "enum",
-            nullable = false
+            name = "role"
     )
     private UserRoles userRoles;
 
