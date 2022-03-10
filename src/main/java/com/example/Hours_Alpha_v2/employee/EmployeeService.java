@@ -3,8 +3,10 @@ package com.example.Hours_Alpha_v2.employee;
 import com.example.Hours_Alpha_v2.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -48,5 +50,56 @@ public class EmployeeService extends UserService {
         employeeRepository.deleteById(employeeId);
     }
 
+    @Transactional
+    public void updateEmployee(Long employeeId,
+                               String firstName,
+                               String lastName,
+                               String email,
+                               Long telephone) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Employee with id: " +employeeId+" does not exist"
+                ));
 
+        //Checking if first name is correct!
+        if(     firstName != null &&
+                firstName.length() > 0 &&
+                !Objects.equals(employee.getFirstName(), firstName)){
+            employee.setFirstName(firstName);
+        }else{
+            throw new IllegalStateException("Something it is wrong. Try Again");
+        }
+
+        //Checking if last name is correct!
+        if(     lastName != null &&
+                lastName.length() > 0 &&
+                !Objects.equals(employee.getLastName(), lastName)){
+            employee.setLastName(lastName);
+        }else{
+            throw new IllegalStateException("Something it is wrong. Try Again");
+        }
+
+        //Checking if mail is correct
+        if( email != null &&
+            email.length() > 0 &&
+            !Objects.equals(employee.getEmail(), email)
+        ){
+            if(email.contains("@gmail.com") || email.contains("@azet.sk") || email.contains("@centrum.sk")){
+              employee.setEmail(email);
+            }else{
+                throw new IllegalStateException("Something with your email is wrong. Try again!");
+            }
+        }else{
+            throw new IllegalStateException("Something with your email is wrong. Try again!");
+        }
+
+        //Checking if telephone is correct
+        if( telephone != null &&
+            telephone.toString().length() > 0 &&
+            !Objects.equals(employee.getTelephone(), telephone)){
+            employee.setTelephone(telephone);
+        }else{
+            throw new IllegalStateException("Something with your mobile phone is wrong");
+        }
+    }
 }

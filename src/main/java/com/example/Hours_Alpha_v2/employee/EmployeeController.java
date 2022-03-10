@@ -1,12 +1,7 @@
 package com.example.Hours_Alpha_v2.employee;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.JstlUtils;
 
 import java.util.List;
 
@@ -31,7 +26,17 @@ public class EmployeeController {
             @PathVariable("employeeId") Long employeeId){
         employeeService.deleteEmployee(employeeId);
     }
-    
+
+    @PutMapping(path = "api/v1/{employeeId}")
+    public void updateEmployee(
+            @PathVariable("employeeId") Long employeeId,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) Long telephone
+    ){
+        employeeService.updateEmployee(employeeId, firstName, lastName, email, telephone);
+    }
 
 }
 
