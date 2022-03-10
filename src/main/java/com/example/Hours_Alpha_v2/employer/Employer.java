@@ -26,7 +26,7 @@ public class Employer extends User{
     )
     private Company company;
 
-    public Employer(String email, String firstName, String lastName, String telephone, UserRoles userRoles) {
+    public Employer(String email, String firstName, String lastName, Long telephone, UserRoles userRoles) {
         super(email, firstName, lastName, telephone, userRoles);
     }
 }

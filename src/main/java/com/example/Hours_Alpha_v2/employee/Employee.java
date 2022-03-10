@@ -33,7 +33,7 @@ public class Employee extends User{
     )
     private List<Hour> listOfHour;
 
-    public Employee(String email, String firstName, String lastName, String telephone, UserRoles userRoles) {
+    public Employee(String email, String firstName, String lastName, Long telephone, UserRoles userRoles) {
         super(email, firstName, lastName, telephone, userRoles);
     }
 }

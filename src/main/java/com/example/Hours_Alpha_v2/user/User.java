@@ -48,10 +48,9 @@ public abstract class User implements UserDetails {
     private String lastName;
 
     @Column(
-            name = "telephone",
-            columnDefinition = "text"
+            name = "telephone"
     )
-    private String telephone;
+    private Long telephone;
 
     @Enumerated
     @Column(
@@ -59,7 +58,7 @@ public abstract class User implements UserDetails {
     )
     private UserRoles userRoles;
 
-    public User(String email, String firstName, String lastName, String telephone, UserRoles userRoles) {
+    public User(String email, String firstName, String lastName, Long telephone, UserRoles userRoles) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
