@@ -1,5 +1,8 @@
 package com.example.Hours_Alpha_v2.hour;
 
+import com.example.Hours_Alpha_v2.employee.Employee;
+import com.example.Hours_Alpha_v2.employer.Employer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -63,4 +66,13 @@ public class Hour {
             columnDefinition = "text"
     )
     private String Note;
+
+    @JsonIgnore
+    @ManyToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "employee_id"
+    )
+    private Employee employee;
 }
