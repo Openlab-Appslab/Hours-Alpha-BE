@@ -39,4 +39,14 @@ public class EmployeeService extends UserService {
 
         employeeRepository.save(employee);
     }
+
+    public void deleteEmployee(Long employeeId) {
+        boolean exists = employeeRepository.existsById(employeeId);
+        if(!exists){
+            throw new IllegalStateException("Employee with id: "+employeeId+" does not exist");
+        }
+        employeeRepository.deleteById(employeeId);
+    }
+
+
 }
