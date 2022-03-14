@@ -12,17 +12,18 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:5432")
+@RequestMapping(path = "/employee")
 public class EmployeeController {
 
     final EmployeeService employeeService;
 
-    @GetMapping(path = "api/v1/listOfEmployee")
+    @GetMapping(path = "/getAllEmployees")
     public ResponseEntity<List<Employee>> getEmployees(){
         List<Employee> employeeList = employeeService.getEmployee();
         return new ResponseEntity<>(employeeList, HttpStatus.OK);
     }
 
-    @GetMapping(path = "api/v1/find/{id}")
+    @GetMapping(path = "/find/{id}")
     public ResponseEntity<Employee> getEmployeeId(
             @PathVariable("id") Long employeeId
     ){
@@ -30,20 +31,20 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @PostMapping(path = "api/v1/registrationOfEmployee")
+    @PostMapping(path = "/registrationOfEmployee")
     public ResponseEntity<Employee> registerNewEmployee(
             @RequestBody Employee employee){
         Employee newEmployee = employeeService.addNewEmployee(employee);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path = "api/v1/delete/{employeeId}")
+    @DeleteMapping(path = "/delete/{employeeId}")
     public void deleteEmployee(
             @PathVariable("employeeId") Long employeeId){
         employeeService.deleteEmployee(employeeId);
     }
 
-    @PutMapping(path = "api/v1/update/{employeeId}")
+    @PutMapping(path = "/update/{employeeId}")
     public ResponseEntity<Employee> updateEmployee(
             @PathVariable("employeeId") Long employeeId,
             @RequestParam(required = false) String firstName,
@@ -55,7 +56,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @PutMapping(path = "api/v1/addCompany/{employeeId}")
+    @PutMapping(path = "/addCompany/{employeeId}")
     public ResponseEntity<Employee> addCompany(
             @PathVariable("employeeId") Long employeeId,
             @RequestParam(required = false) Company company
@@ -64,7 +65,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
-    @PutMapping(path = "api/v1/addRecordOfHours/{employeeId}")
+    @PutMapping(path = "/addRecordOfHours/{employeeId}")
     public ResponseEntity<Employee> addRecordOfHour(
             @PathVariable("employeeId") Long employeeId,
             @RequestParam(required = false) Hour hour
