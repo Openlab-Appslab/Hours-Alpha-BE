@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -25,13 +26,13 @@ public class Employee extends User{
     @JoinColumn(
             name = "company_id"
     )
-    private Company company;
+    private Company company = new Company();
 
     @JsonIgnore
     @OneToMany(
             mappedBy = "employee"
     )
-    private List<Hour> listOfHour;
+    private List<Hour> listOfHour = new ArrayList<>();
 
     public Employee(String email, String firstName, String lastName, Long telephone, UserRoles userRoles) {
         super(email, firstName, lastName, telephone, userRoles);

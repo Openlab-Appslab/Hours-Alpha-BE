@@ -1,10 +1,13 @@
 package com.example.Hours_Alpha_v2.employee;
 
+import com.example.Hours_Alpha_v2.company.Company;
+import com.example.Hours_Alpha_v2.hour.Hour;
 import com.example.Hours_Alpha_v2.user.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,7 +22,12 @@ public class EmployeeService extends UserService {
         return employeeRepository.findAll();
     }
 
-    public void addNewEmployee(Employee employee){
+    public Employee findEmployeeById(Long id){
+        return employeeRepository.findEmployeeById(id)
+                .orElseThrow(() -> new IllegalStateException("User with id does not exists. Id: "+id));
+    }
+
+    public Employee addNewEmployee(Employee employee){
         Optional<Employee> employeeOptional = employeeRepository
                 .findEmployeeByEmail(employee.getEmail());
         if(employeeOptional.isPresent()){
@@ -40,6 +48,8 @@ public class EmployeeService extends UserService {
         }
 
         employeeRepository.save(employee);
+
+        return employee;
     }
 
     public void deleteEmployee(Long employeeId) {
@@ -51,7 +61,7 @@ public class EmployeeService extends UserService {
     }
 
     @Transactional
-    public void updateEmployee(Long employeeId,
+    public Employee updateEmployee(Long employeeId,
                                String firstName,
                                String lastName,
                                String email,
@@ -101,5 +111,24 @@ public class EmployeeService extends UserService {
         }else{
             throw new IllegalStateException("Something with your mobile phone is wrong");
         }
+        return employee;
+    }
+
+    public Employee addCompanyToEmployee(Long employeeId, Company company) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new IllegalStateException("Employee with id does not exists. Id: "+employeeId));
+
+        employee.setCompany(company);
+        return employee;
+    }
+
+    public Employee addRecordOfHourToEmployee(Long employeeId, Hour hour) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new IllegalStateException("Employee with id does not exists. Id: "+employeeId));
+
+        List<Hour> listOfHour = employee.getListOfHour();
+        listOfHour.add(hour);
+
+        return employee;
     }
 }
