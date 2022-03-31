@@ -25,6 +25,8 @@ public class MainConfig {
             employeeService.addNewEmployee(employee1);
             employeeService.addNewEmployee(employee2);
             employeeService.addNewEmployee(employee3);
+
+
         };
     }
 }
