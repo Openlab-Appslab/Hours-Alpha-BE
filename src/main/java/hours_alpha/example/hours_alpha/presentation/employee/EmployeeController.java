@@ -38,4 +38,7 @@ public class EmployeeController {
     public String example3(){
         return "noooo ides?";
     }
+
+    @GetMapping(path = "/Auth/Login")
+    public void login(){}
 }
