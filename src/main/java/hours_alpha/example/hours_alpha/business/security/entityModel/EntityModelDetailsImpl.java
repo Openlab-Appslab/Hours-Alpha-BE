@@ -1,32 +1,31 @@
-package hours_alpha.example.hours_alpha.business.security.employee;
+package hours_alpha.example.hours_alpha.business.security.entityModel;
 
-import hours_alpha.example.hours_alpha.business.employee.Employee;
+import hours_alpha.example.hours_alpha.business.entity.EntityModel;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 
 @AllArgsConstructor
-public class EmployeeDetailsImpl implements UserDetails {
+public class EntityModelDetailsImpl<T extends EntityModel> implements UserDetails {
 
-    private final Employee employee;
+    private T user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
+        return List.of(user.createGrantedAuthority());
     }
 
     @Override
     public String getPassword() {
-        return this.employee.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.employee.getEmail();
+        return user.getFirstName() + "_" + user.getLastName() + "_" + user.getId();
     }
 
     @Override

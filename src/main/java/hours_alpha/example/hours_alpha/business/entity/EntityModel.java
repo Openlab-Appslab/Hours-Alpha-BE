@@ -3,6 +3,8 @@ package hours_alpha.example.hours_alpha.business.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 
@@ -19,11 +21,16 @@ public class EntityModel {
     private String firstName;
     private String lastName;
     private String password;
+    private String role;
 
-    public EntityModel(String email, String firstName, String lastName, String password) {
+    public EntityModel(String email, String firstName, String lastName, String password, String role) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.role = role;
+    }
+    public GrantedAuthority createGrantedAuthority(){
+        return new SimpleGrantedAuthority(role);
     }
 }

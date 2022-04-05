@@ -2,14 +2,10 @@ package hours_alpha.example.hours_alpha;
 
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
-import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import java.util.List;
 
 @Configuration
 @AllArgsConstructor

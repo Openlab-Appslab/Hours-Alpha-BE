@@ -15,6 +15,6 @@ import javax.persistence.Entity;
 public class Employee extends EntityModel {
 
     public Employee(String email, String firstName, String  lastName, String password) {
-        super(email, firstName, lastName, password);
+        super(email, firstName, lastName, password, "ROLE_EMPLOYEE");
     }
 }
