@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Employer extends EntityModel {
 
-    public Employer(String email, String password) {
-        super(email, password);
+    public Employer(String email, String firstName, String lastName, String password) {
+        super(email, firstName, lastName, password);
     }
 }

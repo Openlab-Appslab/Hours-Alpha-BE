@@ -18,9 +18,9 @@ public class MainConfig {
     @Bean
     CommandLineRunner commandLineRunner (EmployeeService employeeService){
         return args -> {
-            Employee employee1 = new Employee("jozko@gmail.com", "1234");
-            Employee employee2 = new Employee("mrkvicka@gmail.com", "1234");
-            Employee employee3 = new Employee("tehla@gmail.com", "1234");
+            Employee employee1 = new Employee("jozko@gmail.com","Jojko","TV", "1234");
+            Employee employee2 = new Employee("mrkvicka@gmail.com","Peto","Mrkva","1234");
+            Employee employee3 = new Employee("tehla@gmail.com","Beton","Tehla", "1234");
 
             employeeService.addNewEmployee(employee1);
             employeeService.addNewEmployee(employee2);
