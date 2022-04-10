@@ -25,6 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/noAuth/*").permitAll()
+                .mvcMatchers("/employee/*").hasAnyAuthority("ROLE_EMPLOYEE")
+                .mvcMatchers("/employer/*").hasAnyAuthority("ROLE_EMPLOYER")
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic();
