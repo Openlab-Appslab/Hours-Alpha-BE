@@ -1,5 +1,6 @@
 package hours_alpha.example.hours_alpha.business.employer;
 
+import hours_alpha.example.hours_alpha.business.company.Company;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
 import hours_alpha.example.hours_alpha.dataAccess.employer.EmployerRepository;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,12 @@ public class EmployerService implements EntityModelService<Employer> {
     private final EmployerRepository employerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
     public Employer getUserByEmail(String email) {
         return employerRepository.findByEmail(email);
+    }
+
+    public Employer addNewEmployer(Employer employer){
+        return employerRepository.save(employer);
     }
 
 }

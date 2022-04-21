@@ -24,9 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/noAuth/*").permitAll()
+                .mvcMatchers("/noAuth/*").permitAll()
                 .mvcMatchers("/employee/*").hasAnyAuthority("ROLE_EMPLOYEE")
                 .mvcMatchers("/employer/*").hasAnyAuthority("ROLE_EMPLOYER")
+                .mvcMatchers("/both/*").hasAnyAuthority("ROLE_EMPLOYER", "ROLE_EMPLOYEE")
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic();
