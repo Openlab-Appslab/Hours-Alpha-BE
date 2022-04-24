@@ -34,6 +34,6 @@ public class Employee extends EntityModel {
    private List<Hour> listOfHour = new ArrayList<>();
 
     public Employee(String email, String firstName, String  lastName, String password) {
-        super(email, firstName, lastName, password, "ROLE_EMPLOYEE");
+        super(email, firstName, lastName, password);
     }
 }

@@ -19,6 +19,9 @@ public class EmployerService implements EntityModelService<Employer> {
     }
 
     public Employer addNewEmployer(Employer employer){
+        String encodePassword = passwordEncoder.encode(employer.getPassword());
+        employer.setPassword(encodePassword);
+        employer.setRole("ROLE_EMPLOYER");
         return employerRepository.save(employer);
     }
 

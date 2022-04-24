@@ -23,12 +23,11 @@ public class EntityModel {
     private String password;
     private String role;
 
-    public EntityModel(String email, String firstName, String lastName, String password, String role) {
+    public EntityModel(String email, String firstName, String lastName, String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
     }
     public GrantedAuthority createGrantedAuthority(){
         return new SimpleGrantedAuthority(role);

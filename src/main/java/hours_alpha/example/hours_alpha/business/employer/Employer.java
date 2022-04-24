@@ -23,6 +23,6 @@ public class Employer extends EntityModel {
     private Company company;
 
     public Employer(String email, String firstName, String lastName, String password) {
-        super(email, firstName, lastName, password, "ROLE_EMPLOYER");
+        super(email, firstName, lastName, password);
     }
 }
