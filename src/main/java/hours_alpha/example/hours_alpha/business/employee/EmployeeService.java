@@ -3,6 +3,7 @@ package hours_alpha.example.hours_alpha.business.employee;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
 import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
+import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,6 @@ public class EmployeeService implements EntityModelService<Employee> {
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Employee getEmployeeByEmail(String email) {
-        return employeeRepository.findByEmail(email);
-    }
-
     public Employee addNewEmployee(Employee employee) {
         String encodePass = passwordEncoder.encode(employee.getPassword());
         employee.setPassword(encodePass);
@@ -27,12 +24,28 @@ public class EmployeeService implements EntityModelService<Employee> {
         return employeeRepository.save(employee);
     }
 
-    public List<Employee> getAllEmployees() {
+
+    public List<Employee> getAllEmployees()
+    {
         return employeeRepository.findAll();
     }
 
     public Employee getUserByEmail(String email) {
-        return employeeRepository.findByEmail(email);
+        Employee employee = employeeRepository.findByEmail(email);
+
+        if(employee != null){
+            return employee;
+        }else{
+            throw new UserNotFoundByEmailException("Použivateľ s emailom: " + email + " nebol najdený!");
+        }
+    }
+
+    public Employee updateEmployee(Employee employee){
+        return employeeRepository.save(employee);
+    }
+
+    public void deleteEmployee(String email){
+        employeeRepository.deleteEmployeeByEmail(email);
     }
 
 }

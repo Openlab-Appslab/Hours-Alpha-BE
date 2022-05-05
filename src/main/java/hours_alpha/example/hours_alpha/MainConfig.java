@@ -6,22 +6,14 @@ import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
-import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.business.hour.HourService;
 import hours_alpha.example.hours_alpha.dataAccess.company.CompanyRepository;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import hours_alpha.example.hours_alpha.dataAccess.employer.EmployerRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-
-import java.sql.Date;
-import java.sql.SQLOutput;
-import java.time.LocalDate;
-import java.util.List;
 
 @Configuration
 @AllArgsConstructor
@@ -41,17 +33,18 @@ public class MainConfig {
             Employer employer = new Employer("mato@gmail.com", "Mato", "ST", "1234");
 
             Employer returnEmployer = employerService.getUserByEmail(employer.getEmail());
-            Company company = new Company("Zilina", "21323", employer);
+            Company company = new Company("Firma","Zilina", "21323", employer);
 
             employer.setCompany(company);
 
             employerService.addNewEmployer(employer);
             companyService.createCompany(company);
 
+            employerService.updateEmployer(employer);
 
-            Employee employee = employeeService.getUserByEmail("jozko@gmail.com");
 
-            System.out.print(employee.getEmail());
+            System.out.print(employeeService.getUserByEmail("mato@gmail.com"));
+
             //listOfHours.add(new Hour(10.0, "Zilina", LocalDate.of(2022,2,10), "Nothing", "Noone"));
 
 //            employee.setListOfHourFebruary(listOfHours);

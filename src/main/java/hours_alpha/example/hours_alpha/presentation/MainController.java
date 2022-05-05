@@ -2,6 +2,7 @@ package hours_alpha.example.hours_alpha.presentation;
 
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
+import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,9 @@ public class MainController {
     private final EmployeeService employeeService;
     private final EmployerService employerService;
 
-    @GetMapping(path = "/employee/example11")
-    public String example1(){
-        return "jede to";
-    }
-
-    @GetMapping(path = "/employer/example11")
-    public String example2(){
-        return "jede to";
-    }
+    /////////////////////////////////
+    //EMPLOYEE PART
+    ////////////////////////////////
 
     @GetMapping(path = "/noAuth/getAllEmployees")
     public List<Employee> getAllEmployees(){
@@ -39,26 +34,12 @@ public class MainController {
         return employeeService.addNewEmployee(employee);
     }
 
-    @GetMapping(path = "/noAuth/example1")
-    public String example12(){
-        return "JEDE TO! / no authorization";
-    }
+    /////////////////////////////////
+    //EMPLOYER PART
+    ////////////////////////////////
 
-    @GetMapping(path = "/Auth/example2")
-    public String example22(){
-        return "JEDE TO! / authorization";
-    }
-
-    @PostMapping(path = "/noAuth/example3")
-    public String example3(){
-        return "noooo ides?";
-    }
-
-    @GetMapping(path = "/Auth/Login")
-    public void login(){}
-
-    @GetMapping(path = "/employer/showCopany")
-    public void showCompany(){
-
+    @GetMapping(path = "/noAuth/addNewEmployer")
+    public Employer addNewEmployer(@RequestBody Employer employer){
+        return employerService.addNewEmployer(employer);
     }
 }

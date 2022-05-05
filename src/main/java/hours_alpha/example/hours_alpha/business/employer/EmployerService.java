@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class EmployerService implements EntityModelService<Employer> {
+public class  EmployerService implements EntityModelService<Employer> {
 
     private final EmployerRepository employerRepository;
     private final PasswordEncoder passwordEncoder;
@@ -23,6 +23,14 @@ public class EmployerService implements EntityModelService<Employer> {
         employer.setPassword(encodePassword);
         employer.setRole("ROLE_EMPLOYER");
         return employerRepository.save(employer);
+    }
+
+    public Employer updateEmployer(Employer employer){
+        return employerRepository.save(employer);
+    }
+
+    public void deleteEmployer(String email){
+        employerRepository.deleteEmployerByEmail(email);
     }
 
 }

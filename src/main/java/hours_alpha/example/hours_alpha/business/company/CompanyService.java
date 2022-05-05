@@ -15,4 +15,13 @@ public class CompanyService {
     public Company createCompany(Company company){
         return companyRepository.save(company);
     }
+
+    public Company updateCompany(Company company){
+        return companyRepository.save(company);
+    }
+
+    public void deleteCompany(String name){
+        companyRepository.deleteByName(name);
+    }
 }
+
