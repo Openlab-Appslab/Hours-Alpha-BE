@@ -1,6 +1,7 @@
 package hours_alpha.example.hours_alpha.business.employee;
 
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
+import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,4 +34,5 @@ public class EmployeeService implements EntityModelService<Employee> {
     public Employee getUserByEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
+
 }

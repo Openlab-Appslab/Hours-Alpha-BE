@@ -6,22 +6,29 @@ import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
+import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.business.hour.HourService;
 import hours_alpha.example.hours_alpha.dataAccess.company.CompanyRepository;
+import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import hours_alpha.example.hours_alpha.dataAccess.employer.EmployerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import java.sql.Date;
 import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.util.List;
 
 @Configuration
 @AllArgsConstructor
 public class MainConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner (EmployeeService employeeService, EmployerService employerService, CompanyService companyService, HourService hourService, EmployerRepository employerRepository, CompanyRepository companyRepository){
+    CommandLineRunner commandLineRunner (EmployeeRepository employeeRepository, EmployeeService employeeService, EmployerService employerService, CompanyService companyService, HourService hourService, EmployerRepository employerRepository, CompanyRepository companyRepository){
         return args -> {
             Employee employee1 = new Employee("jozko@gmail.com","Jojko","TV", "1234");
 //            Employee employee2 = new Employee("mrkvicka@gmail.com","Peto","Mrkva","1234");
@@ -41,8 +48,19 @@ public class MainConfig {
             employerService.addNewEmployer(employer);
             companyService.createCompany(company);
 
-            System.out.println(company.getEmployer().getEmail());
 
+            Employee employee = employeeService.getUserByEmail("jozko@gmail.com");
+
+            System.out.print(employee.getEmail());
+            //listOfHours.add(new Hour(10.0, "Zilina", LocalDate.of(2022,2,10), "Nothing", "Noone"));
+
+//            employee.setListOfHourFebruary(listOfHours);
+//
+//            employeeRepository.save(employee);
+//
+//            Employee employee2 = employeeService.getUserByEmail("jozko@gmail.com");
+//
+//            System.out.println(employee2.getEmail());
         };
     }
 }

@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class Hour {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double sumOfHour;
     private String place;
@@ -24,14 +24,8 @@ public class Hour {
     private String note;
     private String issue;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "listOfHour")
-    private Employee employee;
-
     //without issues
-    public Hour(Long id, Double sumOfHour, String place, LocalDate dateOfDay, String note) {
-        this.id = id;
+    public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String note) {
         this.sumOfHour = sumOfHour;
         this.place = place;
         this.dateOfDay = dateOfDay;
@@ -40,12 +34,23 @@ public class Hour {
     }
 
     //with issues
-    public Hour(Long id, Double sumOfHour, String place, LocalDate dateOfDay, String note, String issue) {
-        this.id = id;
+    public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String note, String issue) {
         this.sumOfHour = sumOfHour;
         this.place = place;
         this.dateOfDay = dateOfDay;
         this.note = note;
         this.issue = issue;
+    }
+
+    @Override
+    public String toString() {
+        return "Hour{" +
+                "id=" + id +
+                ", sumOfHour=" + sumOfHour +
+                ", place='" + place + '\'' +
+                ", dateOfDay=" + dateOfDay +
+                ", note='" + note + '\'' +
+                ", issue='" + issue + '\'' +
+                '}';
     }
 }

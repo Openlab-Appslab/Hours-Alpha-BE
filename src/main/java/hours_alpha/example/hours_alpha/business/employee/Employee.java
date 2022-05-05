@@ -27,11 +27,15 @@ public class Employee extends EntityModel {
     @JoinColumn(name = "company")
     private Company company;
 
-   @JsonIgnore
-   @OneToMany(
-           mappedBy = "employee"
-   )
-   private List<Hour> listOfHour = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "listOfHourJanuary")
+    private List<Hour> listOfHourJanuary = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "listOfHourFebruary")
+    private List<Hour> listOfHourFebruary = new ArrayList<>();
 
     public Employee(String email, String firstName, String  lastName, String password) {
         super(email, firstName, lastName, password);
