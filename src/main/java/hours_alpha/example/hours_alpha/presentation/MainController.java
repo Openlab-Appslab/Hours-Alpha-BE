@@ -3,9 +3,11 @@ package hours_alpha.example.hours_alpha.presentation;
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
 import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
+import hours_alpha.example.hours_alpha.business.employee.dto.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,12 +37,12 @@ public class MainController {
     ////////////////////////////////
 
     @GetMapping(path = "/noAuth/registration")
-    public void addNewEmployer(@RequestBody EmployeeRegistrationDTO newUser){
+    public UserBasicDTO addNewUser(@RequestBody EmployeeRegistrationDTO newUser){
 
         if(newUser.isEmployer()){
-            employerService.addNewEmployer(newUser);
+            return employerService.addNewEmployer(newUser);
         }else{
-            employeeService.addNewEmployee(newUser);
+            return employeeService.addNewEmployee(newUser);
         }
 
     }

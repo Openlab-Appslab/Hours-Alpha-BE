@@ -1,14 +1,18 @@
 package hours_alpha.example.hours_alpha.business.employee;
 
 import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
+import hours_alpha.example.hours_alpha.business.employee.dto.UserBasicDTO;
+import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
 import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.desktop.AboutEvent;
 import java.util.List;
 
 @Service
@@ -18,7 +22,7 @@ public class EmployeeService implements EntityModelService<Employee> {
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Employee addNewEmployee(EmployeeRegistrationDTO employeeRegistrationDTO) {
+    public UserBasicDTO addNewEmployee(EmployeeRegistrationDTO employeeRegistrationDTO) {
 
 
         String encodePass = passwordEncoder.encode(employeeRegistrationDTO.getPassword());
@@ -31,9 +35,19 @@ public class EmployeeService implements EntityModelService<Employee> {
 
         employee.setRole("ROLE_EMPLOYEE");
 
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
+
+        return convertToUserBasicDTO(employee);
     }
 
+    public UserBasicDTO convertToUserBasicDTO(Employee employee){
+
+        return new UserBasicDTO(
+                employee.getEmail(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                false);
+    }
 
     public List<Employee> getAllEmployees()
     {
