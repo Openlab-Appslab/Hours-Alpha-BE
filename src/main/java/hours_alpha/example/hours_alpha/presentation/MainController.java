@@ -2,6 +2,7 @@ package hours_alpha.example.hours_alpha.presentation;
 
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
+import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
 import lombok.AllArgsConstructor;
@@ -29,17 +30,18 @@ public class MainController {
         return employeeService.getAllEmployees();
     }
 
-    @PostMapping(path = "/noAuth/addNewEmployee")
-    public Employee addNewEmployee(@RequestBody Employee employee){
-        return employeeService.addNewEmployee(employee);
-    }
-
     /////////////////////////////////
     //EMPLOYER PART
     ////////////////////////////////
 
-    @GetMapping(path = "/noAuth/addNewEmployer")
-    public Employer addNewEmployer(@RequestBody Employer employer){
-        return employerService.addNewEmployer(employer);
+    @GetMapping(path = "/noAuth/registration")
+    public void addNewEmployer(@RequestBody EmployeeRegistrationDTO newUser){
+
+        if(newUser.isEmployer()){
+            employerService.addNewEmployer(newUser);
+        }else{
+            employeeService.addNewEmployee(newUser);
+        }
+
     }
 }

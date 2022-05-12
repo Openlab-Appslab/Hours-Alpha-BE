@@ -24,6 +24,10 @@ public class Hour {
     private String note;
     private String issue;
 
+    @ManyToOne
+    @JoinColumn(name="employee_id")
+    private Employee employee;
+
     //without issues
     public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String note) {
         this.sumOfHour = sumOfHour;

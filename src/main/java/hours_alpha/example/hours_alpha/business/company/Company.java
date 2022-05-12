@@ -30,10 +30,7 @@ public class Company  {
     @OneToOne(mappedBy = "company")
     private Employer employer;
 
-    @JsonIgnore
-    @OneToMany(
-            mappedBy = "company"
-    )
+    @OneToMany
     private List<Employee> listOfEmployees = new ArrayList<>();
 
     public Company(String name,String place, String ico, Employer employer) {

@@ -1,5 +1,6 @@
 package hours_alpha.example.hours_alpha.business.employee;
 
+import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
 import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
@@ -17,10 +18,19 @@ public class EmployeeService implements EntityModelService<Employee> {
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Employee addNewEmployee(Employee employee) {
-        String encodePass = passwordEncoder.encode(employee.getPassword());
-        employee.setPassword(encodePass);
+    public Employee addNewEmployee(EmployeeRegistrationDTO employeeRegistrationDTO) {
+
+
+        String encodePass = passwordEncoder.encode(employeeRegistrationDTO.getPassword());
+
+        Employee employee = new Employee(
+                employeeRegistrationDTO.getEmail(),
+                employeeRegistrationDTO.getFirstName(),
+                employeeRegistrationDTO.getLastName(),
+                encodePass);
+
         employee.setRole("ROLE_EMPLOYEE");
+
         return employeeRepository.save(employee);
     }
 

@@ -26,7 +26,7 @@ public class MainConfig {
 //            Employee employee2 = new Employee("mrkvicka@gmail.com","Peto","Mrkva","1234");
 //            Employee employee3 = new Employee("tehla@gmail.com","Beton","Tehla", "1234");
 
-            employeeService.addNewEmployee(employee1);
+            //employeeService.addNewEmployee(employee1);
 //            employeeService.addNewEmployee(employee2);
 //            employeeService.addNewEmployee(employee3);
 
@@ -34,16 +34,6 @@ public class MainConfig {
 
             Employer returnEmployer = employerService.getUserByEmail(employer.getEmail());
             Company company = new Company("Firma","Zilina", "21323", employer);
-
-            employer.setCompany(company);
-
-            employerService.addNewEmployer(employer);
-            companyService.createCompany(company);
-
-            employerService.updateEmployer(employer);
-
-
-            System.out.print(employeeService.getUserByEmail("mato@gmail.com"));
 
             //listOfHours.add(new Hour(10.0, "Zilina", LocalDate.of(2022,2,10), "Nothing", "Noone"));
 
