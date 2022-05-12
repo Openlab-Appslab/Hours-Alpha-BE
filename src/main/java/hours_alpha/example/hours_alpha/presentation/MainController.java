@@ -36,7 +36,7 @@ public class MainController {
     //EMPLOYER PART
     ////////////////////////////////
 
-    @GetMapping(path = "/noAuth/registration")
+    @PostMapping(path = "/noAuth/registration")
     public UserBasicDTO addNewUser(@RequestBody EmployeeRegistrationDTO newUser){
 
         if(newUser.isEmployer()){
