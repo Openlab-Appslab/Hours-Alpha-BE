@@ -1,4 +1,4 @@
-package hours_alpha.example.hours_alpha.business.employee.dto;
+package hours_alpha.example.hours_alpha.business.dto.userDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBasicDTO {
+public class UserRegistrationDTO {
     private String email;
     private String firstName;
     private String lastName;
+    private String password;
     private boolean stateEmployer;
+
+    public boolean getStateEmployer() {
+        return stateEmployer;
+    }
 }

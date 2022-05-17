@@ -2,8 +2,8 @@ package hours_alpha.example.hours_alpha.presentation;
 
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
-import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
-import hours_alpha.example.hours_alpha.business.employee.dto.UserBasicDTO;
+import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
+import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +34,7 @@ public class MainController {
     ////////////////////////////////
 
     @PostMapping(path = "/noAuth/registration")
-    public UserBasicDTO addNewUser(@RequestBody EmployeeRegistrationDTO newUser){
+    public UserBasicDTO addNewUser(@RequestBody UserRegistrationDTO newUser){
 
        if(newUser.getStateEmployer()) {
            return employerService.addNewEmployer(newUser);
