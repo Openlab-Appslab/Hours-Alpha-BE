@@ -13,5 +13,5 @@ public class UserBasicDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private boolean isEmployer;
+    private boolean stateEmployer;
 }

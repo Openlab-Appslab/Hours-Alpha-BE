@@ -25,4 +25,5 @@ public class Employer extends EntityModel {
     public Employer(String email, String firstName, String lastName, String password) {
         super(email, firstName, lastName, password);
     }
+
 }

@@ -4,11 +4,8 @@ import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
 import hours_alpha.example.hours_alpha.business.employee.dto.EmployeeRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.employee.dto.UserBasicDTO;
-import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
 import lombok.AllArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,11 +36,12 @@ public class MainController {
     @PostMapping(path = "/noAuth/registration")
     public UserBasicDTO addNewUser(@RequestBody EmployeeRegistrationDTO newUser){
 
-        if(newUser.isEmployer()){
-            return employerService.addNewEmployer(newUser);
-        }else{
-            return employeeService.addNewEmployee(newUser);
-        }
-
+       if(newUser.getStateEmployer()) {
+           return employerService.addNewEmployer(newUser);
+       }else if (!newUser.getStateEmployer()){
+           return employeeService.addNewEmployee(newUser);
+       }else{
+           return null;
+       }
     }
 }

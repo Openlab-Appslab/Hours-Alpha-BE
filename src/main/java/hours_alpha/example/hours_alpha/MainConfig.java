@@ -22,7 +22,7 @@ public class MainConfig {
     @Bean
     CommandLineRunner commandLineRunner (EmployeeRepository employeeRepository, EmployeeService employeeService, EmployerService employerService, CompanyService companyService, HourService hourService, EmployerRepository employerRepository, CompanyRepository companyRepository){
         return args -> {
-            Employee employee1 = new Employee("jozko@gmail.com","Jojko","TV", "1234");
+//            Employee employee1 = new Employee("jozko@gmail.com","Jojko","TV", "1234");
 //            Employee employee2 = new Employee("mrkvicka@gmail.com","Peto","Mrkva","1234");
 //            Employee employee3 = new Employee("tehla@gmail.com","Beton","Tehla", "1234");
 
@@ -30,10 +30,10 @@ public class MainConfig {
 //            employeeService.addNewEmployee(employee2);
 //            employeeService.addNewEmployee(employee3);
 
-            Employer employer = new Employer("mato@gmail.com", "Mato", "ST", "1234");
-
-            Employer returnEmployer = employerService.getUserByEmail(employer.getEmail());
-            Company company = new Company("Firma","Zilina", "21323", employer);
+//            Employer employer = new Employer("mato@gmail.com", "Mato", "ST", "1234");
+//
+//            Employer returnEmployer = employerService.getUserByEmail(employer.getEmail());
+//            Company company = new Company("Firma","Zilina", "21323", employer);
 
             //listOfHours.add(new Hour(10.0, "Zilina", LocalDate.of(2022,2,10), "Nothing", "Noone"));
 

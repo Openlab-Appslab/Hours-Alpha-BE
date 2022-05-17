@@ -14,5 +14,9 @@ public class EmployeeRegistrationDTO {
     private String firstName;
     private String lastName;
     private String password;
-    private boolean isEmployer;
+    private boolean stateEmployer;
+
+    public boolean getStateEmployer() {
+        return stateEmployer;
+    }
 }

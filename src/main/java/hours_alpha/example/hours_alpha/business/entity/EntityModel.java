@@ -32,4 +32,5 @@ public class EntityModel {
     public GrantedAuthority createGrantedAuthority(){
         return new SimpleGrantedAuthority(role);
     }
+
 }
