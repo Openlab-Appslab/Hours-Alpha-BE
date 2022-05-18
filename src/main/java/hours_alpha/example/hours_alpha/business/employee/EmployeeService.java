@@ -61,6 +61,10 @@ public class EmployeeService implements EntityModelService<Employee> {
         }
     }
 
+    public Employee loginGetUserByEmail(String email){
+        return employeeRepository.findByEmail(email);
+    }
+
     public Employee updateEmployee(Employee employee){
         return employeeRepository.save(employee);
     }

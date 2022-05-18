@@ -2,6 +2,7 @@ package hours_alpha.example.hours_alpha.business.employer;
 
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
+import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
 import hours_alpha.example.hours_alpha.dataAccess.employer.EmployerRepository;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,10 @@ public class  EmployerService implements EntityModelService<Employer> {
     private final PasswordEncoder passwordEncoder;
 
     public Employer getUserByEmail(String email) {
+        return employerRepository.findByEmail(email);
+    }
+
+    public Employer loginGetUserByEmail(String email){
         return employerRepository.findByEmail(email);
     }
 
