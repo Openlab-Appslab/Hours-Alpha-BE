@@ -40,4 +40,5 @@ public class Company  {
         this.employer = employer;
         this.listOfEmployees = new ArrayList<>();
     }
+
 }
