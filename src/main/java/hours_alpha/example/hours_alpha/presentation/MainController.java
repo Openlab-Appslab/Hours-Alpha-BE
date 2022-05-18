@@ -1,5 +1,8 @@
 package hours_alpha.example.hours_alpha.presentation;
 
+import hours_alpha.example.hours_alpha.business.company.Company;
+import hours_alpha.example.hours_alpha.business.company.CompanyService;
+import hours_alpha.example.hours_alpha.business.dto.companyDTO.CreationCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.LoginDTO;
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
@@ -19,6 +22,7 @@ public class MainController {
 
     private final EmployeeService employeeService;
     private final EmployerService employerService;
+    private final CompanyService companyService;
 
     /////////////////////////////////
     //EMPLOYEE PART
@@ -60,5 +64,10 @@ public class MainController {
             throw new UserNotFoundByEmailException("Použivateľ s emailom: "+" nebol najdení!");
         }
 
+    }
+
+    @PostMapping(path = "/employer/createCompany")
+    public Company createCompany(@RequestBody CreationCompanyDTO creationCompanyDTO){
+        return companyService.createCompany(creationCompanyDTO);
     }
 }

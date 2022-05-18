@@ -24,18 +24,18 @@ public class Company  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String place;
     private String ico;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "company")
     private Employer employer;
 
+    @JsonIgnore
     @OneToMany
     private List<Employee> listOfEmployees = new ArrayList<>();
 
-    public Company(String name,String place, String ico, Employer employer) {
+    public Company(String name, String ico, Employer employer) {
         this.name = name;
-        this.place = place;
         this.ico = ico;
         this.employer = employer;
         this.listOfEmployees = new ArrayList<>();
