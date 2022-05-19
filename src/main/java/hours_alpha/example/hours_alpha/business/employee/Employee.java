@@ -1,16 +1,16 @@
 package hours_alpha.example.hours_alpha.business.employee;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import hours_alpha.example.hours_alpha.business.company.Company;
 import hours_alpha.example.hours_alpha.business.entity.EntityModel;
 import hours_alpha.example.hours_alpha.business.hour.Hour;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 

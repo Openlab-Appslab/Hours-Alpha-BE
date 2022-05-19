@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -82,9 +81,9 @@ public class MainController {
 
         if(employer != null)
         {
-            Optional<Company> optionalCompany = companyService.getCompanyByName(employer.getCompany().getName());
-            if(optionalCompany.isPresent()) {
-                return companyService.convertCompanyToCompanyBasicDTO(employer, optionalCompany);
+            Company company = companyService.getOptionalCompanyByName(employer.getCompany().getName());
+            if(company != null) {
+                return companyService.convertCompanyToCompanyBasicDTO(employer, company);
             }else{
               throw new CompanyDoesntExists("Tento pouzivatel firmu nema!");
             }
