@@ -2,6 +2,7 @@ package hours_alpha.example.hours_alpha.presentation;
 
 import hours_alpha.example.hours_alpha.business.company.Company;
 import hours_alpha.example.hours_alpha.business.company.CompanyService;
+import hours_alpha.example.hours_alpha.business.dto.companyDTO.AddNewEmployeeToCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.CreationCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.LoginDTO;
@@ -81,7 +82,7 @@ public class MainController {
 
         if(employer != null)
         {
-            Company company = companyService.getOptionalCompanyByName(employer.getCompany().getName());
+            Company company = companyService.getCompanyByName(employer.getCompany().getName());
             if(company != null) {
                 return companyService.convertCompanyToCompanyBasicDTO(employer, company);
             }else{
@@ -91,4 +92,12 @@ public class MainController {
             throw new UserNotFoundByEmailException("Pouzivatel nexxistuje s tymto emailom: "+ loginDTO.getEmail());
         }
     }
+
+    @GetMapping(path = "/employee/addEmployeeToCompany")
+    public CompanyBasicDTO addNewEmployeeToCompany(@RequestBody AddNewEmployeeToCompanyDTO addNewEmployeeToCompanyDTO){
+
+        return companyService.addEmployeeToCompany(addNewEmployeeToCompanyDTO.name, addNewEmployeeToCompanyDTO.getEmail());
+    }
+
+
 }

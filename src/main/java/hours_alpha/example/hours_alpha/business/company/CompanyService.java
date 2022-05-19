@@ -86,7 +86,7 @@ public class CompanyService {
         }
     }
 
-    public Company getOptionalCompanyByName(String name){
+    public Company getCompanyByName(String name){
         Company company = companyRepository.findByName(name);
 
         if(company != null) {
