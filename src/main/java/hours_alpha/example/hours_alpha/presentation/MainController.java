@@ -69,8 +69,12 @@ public class MainController {
 
     }
 
+    /////////////////////////////////
+    //COMPANY PART
+    ////////////////////////////////
+
     @PostMapping(path = "/employer/createCompany")
-    public Company createCompany(@RequestBody CreationCompanyDTO creationCompanyDTO){
+    public CompanyBasicDTO createCompany(@RequestBody CreationCompanyDTO creationCompanyDTO){
         return companyService.createCompany(creationCompanyDTO);
     }
 
@@ -93,7 +97,7 @@ public class MainController {
         }
     }
 
-    @GetMapping(path = "/employee/addEmployeeToCompany")
+    @PutMapping(path = "/employee/addEmployeeToCompany")
     public CompanyBasicDTO addNewEmployeeToCompany(@RequestBody AddNewEmployeeToCompanyDTO addNewEmployeeToCompanyDTO){
 
         return companyService.addEmployeeToCompany(addNewEmployeeToCompanyDTO.name, addNewEmployeeToCompanyDTO.getEmail());

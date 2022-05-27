@@ -22,24 +22,58 @@ public class CompanyService {
     private final EmployeeRepository employeeRepository;
     private final CompanyRepository companyRepository;
 
-    public Company createCompany(CreationCompanyDTO creationCompanyDTO){
+    public CompanyBasicDTO createCompany(CreationCompanyDTO creationCompanyDTO){
+//
+//        if (employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null) {
+//            throw  new UserNotFoundByEmailException("Uživateľ s týmto emailom nebol nájdení. Email: "+ creationCompanyDTO.getEmail());
+//        }else if (companyRepository.findByName(creationCompanyDTO.getName()) == null){
+//            throw new CompanyDoesntExists("Firma s týmto menom nexxistuje! Meno: "+creationCompanyDTO.getName());
+//        }else {
+//
+//            Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+//
+//            //CREATING AND SAVING COMPANY
+//            Company company = new Company(
+//                    creationCompanyDTO.getName(),
+//                    creationCompanyDTO.getIco(),
+//                    employer
+//            );
+//
+//            companyRepository.save(company);
+//
+//            //SAVING COMPANY TO EMPLOYER
+//            employer.setCompany(company);
+//            employerRepository.save(employer);
+//
+//            return convertCompanyToCompanyBasicDTO(employer, company);
+//        }
 
-        Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+        if(employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null){
 
-        Company company = companyRepository.findByName(creationCompanyDTO.getName());
+            if(companyRepository.findByName(creationCompanyDTO.getName()) == null){
+                Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
 
-        if (company != null) {
+                //CREATING AND SAVING COMPANY
+                Company company = new Company(
+                        creationCompanyDTO.getName(),
+                        creationCompanyDTO.getIco(),
+                        employer
+                );
+                companyRepository.save(company);
 
-            employer.setCompany(company);
+                //SAVING COMPANY TO EMPLOYER
+                employer.setCompany(company);
+                employerRepository.save(employer);
 
-            companyRepository.save(company);
-            employerRepository.save(employer);
+                return convertCompanyToCompanyBasicDTO(employer, company);
 
-            return company;
-
-        }else {
-            throw new CompanyAlreadyExists("Firma s danym menom uz existuje! MENO: "+creationCompanyDTO.getName());
+            }else{
+                throw new CompanyDoesntExists("Firma s týmto menom nexxistuje! Meno: "+creationCompanyDTO.getName()); //EXC
+            }
+        }else{
+            throw  new UserNotFoundByEmailException("Uživateľ s týmto emailom nebol nájdení. Email: "+ creationCompanyDTO.getEmail()); //EXC
         }
+
 
     }
 
