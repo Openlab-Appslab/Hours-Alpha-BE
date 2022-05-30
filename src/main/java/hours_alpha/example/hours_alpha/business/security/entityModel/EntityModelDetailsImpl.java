@@ -25,7 +25,7 @@ public class EntityModelDetailsImpl<T extends EntityModel> implements UserDetail
 
     @Override
     public String getUsername() {
-        return user.getFirstName() + "_" + user.getLastName() + "_" + user.getId();
+        return user.getEmail();
     }
 
     @Override

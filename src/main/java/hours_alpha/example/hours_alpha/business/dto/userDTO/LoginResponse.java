@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LoginDTO {
-    private String email;
+public class LoginResponse
+{
+    private boolean employer;
 }
