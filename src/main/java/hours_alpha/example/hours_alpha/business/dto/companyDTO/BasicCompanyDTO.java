@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreationCompanyDTO {
+public class BasicCompanyDTO {
 
     private String name;
     private String ico;

@@ -1,13 +1,12 @@
 package hours_alpha.example.hours_alpha.business.company;
 
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
-import hours_alpha.example.hours_alpha.business.dto.companyDTO.CreationCompanyDTO;
+import hours_alpha.example.hours_alpha.business.dto.companyDTO.BasicCompanyDTO;
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.dataAccess.company.CompanyRepository;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
 import hours_alpha.example.hours_alpha.dataAccess.employer.EmployerRepository;
-import hours_alpha.example.hours_alpha.exception.CompanyAlreadyExists;
 import hours_alpha.example.hours_alpha.exception.CompanyDoesntExists;
 import hours_alpha.example.hours_alpha.exception.PresentVariableIsNull;
 import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
@@ -22,7 +21,7 @@ public class CompanyService {
     private final EmployeeRepository employeeRepository;
     private final CompanyRepository companyRepository;
 
-    public CompanyBasicDTO createCompany(CreationCompanyDTO creationCompanyDTO){
+    public CompanyBasicDTO createCompany(BasicCompanyDTO creationCompanyDTO){
 //
 //        if (employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null) {
 //            throw  new UserNotFoundByEmailException("Uživateľ s týmto emailom nebol nájdení. Email: "+ creationCompanyDTO.getEmail());

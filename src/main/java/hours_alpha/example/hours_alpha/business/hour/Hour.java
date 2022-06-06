@@ -21,40 +21,14 @@ public class Hour {
     private Double sumOfHour;
     private String place;
     private LocalDate dateOfDay;
-    private String note;
-    private String issue;
 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
 
-    //without issues
-    public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String note) {
+    public Hour(Double sumOfHour, String place, LocalDate dateOfDay) {
         this.sumOfHour = sumOfHour;
         this.place = place;
         this.dateOfDay = dateOfDay;
-        this.note = note;
-        this.issue="Žiadny nebol uvedení";
-    }
-
-    //with issues
-    public Hour(Double sumOfHour, String place, LocalDate dateOfDay, String note, String issue) {
-        this.sumOfHour = sumOfHour;
-        this.place = place;
-        this.dateOfDay = dateOfDay;
-        this.note = note;
-        this.issue = issue;
-    }
-
-    @Override
-    public String toString() {
-        return "Hour{" +
-                "id=" + id +
-                ", sumOfHour=" + sumOfHour +
-                ", place='" + place + '\'' +
-                ", dateOfDay=" + dateOfDay +
-                ", note='" + note + '\'' +
-                ", issue='" + issue + '\'' +
-                '}';
     }
 }

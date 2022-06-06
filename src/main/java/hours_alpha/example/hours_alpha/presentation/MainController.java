@@ -4,7 +4,7 @@ import hours_alpha.example.hours_alpha.business.company.Company;
 import hours_alpha.example.hours_alpha.business.company.CompanyService;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.AddNewEmployeeToCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
-import hours_alpha.example.hours_alpha.business.dto.companyDTO.CreationCompanyDTO;
+import hours_alpha.example.hours_alpha.business.dto.companyDTO.BasicCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.LoginResponse;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
@@ -70,7 +70,7 @@ public class MainController {
     ////////////////////////////////
 
     @PostMapping(path = "/employer/createCompany")
-    public CompanyBasicDTO createCompany(@RequestBody CreationCompanyDTO creationCompanyDTO){
+    public CompanyBasicDTO createCompany(@RequestBody BasicCompanyDTO creationCompanyDTO){
         return companyService.createCompany(creationCompanyDTO);
     }
 

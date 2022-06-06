@@ -8,6 +8,7 @@ class HoursAlphaApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
