@@ -5,6 +5,7 @@ import hours_alpha.example.hours_alpha.business.company.CompanyService;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.AddNewEmployeeToCompanyDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.BasicCompanyDTO;
+import hours_alpha.example.hours_alpha.business.dto.hoursDTO.BasicHoursDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.LoginResponse;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
@@ -12,6 +13,8 @@ import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
 import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
+import hours_alpha.example.hours_alpha.business.hour.Hour;
+import hours_alpha.example.hours_alpha.business.hour.HourService;
 import hours_alpha.example.hours_alpha.exception.CompanyDoesntExists;
 import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
@@ -29,6 +32,7 @@ public class MainController {
     private final EmployeeService employeeService;
     private final EmployerService employerService;
     private final CompanyService companyService;
+    private final HourService hourService;
 
     /////////////////////////////////
     //EMPLOYEE PART
@@ -99,6 +103,23 @@ public class MainController {
     public CompanyBasicDTO addNewEmployeeToCompany(@RequestBody AddNewEmployeeToCompanyDTO addNewEmployeeToCompanyDTO){
 
         return companyService.addEmployeeToCompany(addNewEmployeeToCompanyDTO.name, addNewEmployeeToCompanyDTO.getEmail());
+    }
+
+    /////////////////////////////////
+    //HOURS PART
+    ////////////////////////////////
+
+    @PostMapping(path = "/employee/addWorkInfo")
+    public BasicHoursDTO addWorkInfoToEmployee(@RequestBody BasicHoursDTO basicHoursDTO, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return hourService.addNewHoursToUser(basicHoursDTO, userDetails.getUsername());
+    }
+
+    @GetMapping(path = "/both/showAllWorkInfo")
+    public List<Hour> showAllWorkInfo(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        return hourService.getAllHoursFromUser(userDetails.getUsername());
     }
 
 

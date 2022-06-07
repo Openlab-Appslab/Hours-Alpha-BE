@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BasicHoursDTO {
 
-    private double hours;
+    private Integer hours;
     private String place;
-    private LocalDate dateOfDay;
+    //private LocalDate dateOfDay;
 }

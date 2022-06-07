@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 
 @Entity
@@ -18,17 +19,17 @@ public class Hour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double sumOfHour;
+    private Integer sumOfHour;
     private String place;
-    private LocalDate dateOfDay;
+    //private LocalDate dateOfDay;
 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
 
-    public Hour(Double sumOfHour, String place, LocalDate dateOfDay) {
+    public Hour(Integer sumOfHour, String place) {
         this.sumOfHour = sumOfHour;
         this.place = place;
-        this.dateOfDay = dateOfDay;
+        //this.dateOfDay = dateOfDay;
     }
 }

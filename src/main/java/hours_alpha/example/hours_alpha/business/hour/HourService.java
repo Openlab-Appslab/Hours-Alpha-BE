@@ -18,18 +18,11 @@ public class HourService {
 
     private final EmployeeRepository employeeRepository;
 
-    public List<BasicHoursDTO> getAllHoursFromUser(String email){
+    public List<Hour> getAllHoursFromUser(String email){
         Employee employee = employeeRepository.findByEmail(email);
+
         if(employee != null){
-            List<Hour> listOfHour = employee.getHours();
-            List<BasicHoursDTO> basicHoursDTOList = new ArrayList<>();
-
-            for (Hour hour : listOfHour) {
-                basicHoursDTOList.add(convertToHoursToBasicHours(hour));
-            }
-
-            return basicHoursDTOList;
-
+            return employee.getHours();
         }else{
             throw new UserNotFoundByEmailException("Uživateľ nebol najdený!");
         }
@@ -45,11 +38,10 @@ public class HourService {
         if(employee != null){
             Hour hour = new Hour(
                     basicHoursDTO.getHours(),
-                    basicHoursDTO.getPlace(),
-                    basicHoursDTO.getDateOfDay()
-            );
+                    basicHoursDTO.getPlace());
 
             employee.getHours().add(hour);
+            System.out.println(employee.getHours().get(0).getSumOfHour());
             employeeRepository.save(employee);
 
             return convertToHoursToBasicHours(hour);
@@ -71,8 +63,6 @@ public class HourService {
     public BasicHoursDTO convertToHoursToBasicHours(Hour hour){
         return new BasicHoursDTO(
                 hour.getSumOfHour(),
-                hour.getPlace(),
-                hour.getDateOfDay()
-        );
+                hour.getPlace());
     }
 }
