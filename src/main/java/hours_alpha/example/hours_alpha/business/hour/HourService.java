@@ -3,6 +3,7 @@ package hours_alpha.example.hours_alpha.business.hour;
 import hours_alpha.example.hours_alpha.business.dto.hoursDTO.BasicHoursDTO;
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
+import hours_alpha.example.hours_alpha.dataAccess.hours.HoursRepository;
 import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,20 @@ import java.util.List;
 public class HourService {
 
     private final EmployeeRepository employeeRepository;
+    private final HoursRepository hoursRepository;
 
-    public List<Hour> getAllHoursFromUser(String email){
+    public List<BasicHoursDTO> getAllHoursFromUser(String email){
         Employee employee = employeeRepository.findByEmail(email);
 
         if(employee != null){
-            return employee.getHours();
+
+            List<BasicHoursDTO> listOfHoursDTO = new ArrayList<>();
+
+            employee.getHours().forEach((e) ->{
+             listOfHoursDTO.add(convertToHoursToBasicHours(e));
+            });
+
+            return listOfHoursDTO;
         }else{
             throw new UserNotFoundByEmailException("Uživateľ nebol najdený!");
         }
@@ -40,9 +49,14 @@ public class HourService {
                     basicHoursDTO.getHours(),
                     basicHoursDTO.getPlace());
 
+            hour.setEmployee(employee);
+
             employee.getHours().add(hour);
-            System.out.println(employee.getHours().get(0).getSumOfHour());
+
+            hoursRepository.save(hour);
+
             employeeRepository.save(employee);
+
 
             return convertToHoursToBasicHours(hour);
 

@@ -7,6 +7,8 @@ import hours_alpha.example.hours_alpha.business.hour.Hour;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -28,6 +30,7 @@ public class Employee extends EntityModel {
 
     public Employee(String email, String firstName, String  lastName, String password) {
         super(email, firstName, lastName, password);
+        this.hours = new ArrayList<>();
 
     }
 }

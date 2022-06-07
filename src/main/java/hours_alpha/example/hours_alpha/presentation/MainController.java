@@ -115,8 +115,8 @@ public class MainController {
         return hourService.addNewHoursToUser(basicHoursDTO, userDetails.getUsername());
     }
 
-    @GetMapping(path = "/both/showAllWorkInfo")
-    public List<Hour> showAllWorkInfo(Authentication authentication){
+    @GetMapping(path = "/employee/showAllWorkInfo")
+    public List<BasicHoursDTO> showAllWorkInfo(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         return hourService.getAllHoursFromUser(userDetails.getUsername());
