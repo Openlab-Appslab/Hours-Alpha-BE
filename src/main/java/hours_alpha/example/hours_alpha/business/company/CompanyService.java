@@ -22,30 +22,6 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
 
     public CompanyBasicDTO createCompany(BasicCompanyDTO creationCompanyDTO){
-//
-//        if (employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null) {
-//            throw  new UserNotFoundByEmailException("Uživateľ s týmto emailom nebol nájdení. Email: "+ creationCompanyDTO.getEmail());
-//        }else if (companyRepository.findByName(creationCompanyDTO.getName()) == null){
-//            throw new CompanyDoesntExists("Firma s týmto menom nexxistuje! Meno: "+creationCompanyDTO.getName());
-//        }else {
-//
-//            Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
-//
-//            //CREATING AND SAVING COMPANY
-//            Company company = new Company(
-//                    creationCompanyDTO.getName(),
-//                    creationCompanyDTO.getIco(),
-//                    employer
-//            );
-//
-//            companyRepository.save(company);
-//
-//            //SAVING COMPANY TO EMPLOYER
-//            employer.setCompany(company);
-//            employerRepository.save(employer);
-//
-//            return convertCompanyToCompanyBasicDTO(employer, company);
-//        }
 
         if(employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null){
 

@@ -50,13 +50,10 @@ public class HourService {
                     basicHoursDTO.getPlace());
 
             hour.setEmployee(employee);
-
             employee.getHours().add(hour);
 
             hoursRepository.save(hour);
-
             employeeRepository.save(employee);
-
 
             return convertToHoursToBasicHours(hour);
 
