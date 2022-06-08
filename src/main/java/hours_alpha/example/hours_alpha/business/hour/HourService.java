@@ -73,6 +73,7 @@ public class HourService {
 
     public BasicHoursDTO convertToHoursToBasicHours(Hour hour){
         return new BasicHoursDTO(
+                hour.getId(),
                 hour.getSumOfHour(),
                 hour.getPlace());
     }
