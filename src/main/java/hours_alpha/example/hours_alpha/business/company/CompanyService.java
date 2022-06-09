@@ -13,6 +13,8 @@ import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CompanyService {
@@ -23,24 +25,24 @@ public class CompanyService {
 
     public CompanyBasicDTO createCompany(BasicCompanyDTO creationCompanyDTO){
 
-        if(employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null){
+        Optional<Employer> employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+        if(employer.isPresent()){
 
-            if(companyRepository.findByName(creationCompanyDTO.getName()) == null){
-                Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+            if(companyRepository.findByName(creationCompanyDTO.getName()).isEmpty()){
 
                 //CREATING AND SAVING COMPANY
                 Company company = new Company(
                         creationCompanyDTO.getName(),
                         creationCompanyDTO.getIco(),
-                        employer
+                        employer.get()
                 );
                 companyRepository.save(company);
 
                 //SAVING COMPANY TO EMPLOYER
-                employer.setCompany(company);
-                employerRepository.save(employer);
+                employer.get().setCompany(company);
+                employerRepository.save(employer.get());
 
-                return convertCompanyToCompanyBasicDTO(employer, company);
+                return convertCompanyToCompanyBasicDTO(employer.get(), company);
 
             }else{
                 throw new CompanyDoesntExists("Firma s týmto menom nexxistuje! Meno: "+creationCompanyDTO.getName()); //EXC
@@ -70,22 +72,27 @@ public class CompanyService {
 
     public CompanyBasicDTO addEmployeeToCompany(String name, String email){
 
-        Company company = companyRepository.findByName(name);
+        Optional<Company> companyOptional = companyRepository.findByName(name);
 
-        if(company != null){
+        if(companyOptional.isPresent()){
 
-            Employee employee = employeeRepository.findByEmail(email);
+            Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
-            if(employee != null){
-                company.getListOfEmployees().add(employee);
+            if(employeeOptional.isPresent()){
+                companyOptional.get().getListOfEmployees().add(employeeOptional.get());
 
-                employee.setCompany(company);
+                employeeOptional.get().setCompany(companyOptional.get());
 
-                employeeRepository.save(employee);
-                companyRepository.save(company);
+                employeeRepository.save(employeeOptional.get());
+                companyRepository.save(companyOptional.get());
 
-                return convertCompanyToCompanyBasicDTO(employerRepository.findByEmail(company.getEmployer().getEmail()), company);
+                Optional<Employer> employerOptional = employerRepository.findByEmail(companyOptional.get().getEmployer().getEmail());
 
+                if(employerOptional.isPresent()){
+                    return convertCompanyToCompanyBasicDTO(employerOptional.get(), companyOptional.get());
+                }else{
+                    throw new UserNotFoundByEmailException("Pouzivatel s danym emailom nexxistuje! "+email);
+                }
             }else{
                 throw new UserNotFoundByEmailException("Pouzivatel s danym emailom nexxistuje! "+email);
             }
@@ -96,10 +103,10 @@ public class CompanyService {
     }
 
     public Company getCompanyByName(String name){
-        Company company = companyRepository.findByName(name);
+        Optional<Company> companyOptional = companyRepository.findByName(name);
 
-        if(company != null) {
-            return company;
+        if(companyOptional.isPresent()) {
+            return companyOptional.get();
         }else{
             throw new CompanyDoesntExists("Firma s menom "+name+" nexxistuje");
         }

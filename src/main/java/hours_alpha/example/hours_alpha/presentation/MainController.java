@@ -122,5 +122,14 @@ public class MainController {
         return hourService.getAllHoursFromUser(userDetails.getUsername());
     }
 
+    /////////////////////////////////
+    //SENDING EMAIL
+    ////////////////////////////////
+
+    @GetMapping(path = "/both/support")
+    public void sendSupportEmail(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    }
+
 
 }
