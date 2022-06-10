@@ -19,13 +19,14 @@ public class  EmployerService implements EntityModelService<Employer> {
     private final PasswordEncoder passwordEncoder;
 
     public Employer getUserByEmail(String email) {
-        Optional<Employer> employerOptional = employerRepository.findByEmail(email);
-
-        if(employerOptional.isPresent()){
-            return employerOptional.get();
-        }else{
-            throw new UserNotFoundByEmailException("Uživateľ nebol najdedný so zadaným emailom!");
-        }
+        return employerRepository.findByEmail(email).orElse(null);
+//        Optional<Employer> employerOptional = employerRepository.findByEmail(email);
+//
+//        if(employerOptional.isPresent()){
+//            return employerOptional.get();
+//        }else{
+//            throw new UserNotFoundByEmailException("Uživateľ nebol najdedný so zadaným emailom!");
+//        }
     }
 
     public UserBasicDTO addNewEmployer(UserRegistrationDTO employerDTO){
