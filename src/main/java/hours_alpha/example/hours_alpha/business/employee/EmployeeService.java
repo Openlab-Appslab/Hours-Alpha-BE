@@ -59,13 +59,14 @@ public class EmployeeService implements EntityModelService<Employee> {
     }
 
     public Employee getUserByEmail(String email) {
-        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
-
-        if(employeeOptional.isPresent()){
-            return employeeOptional.get();
-        }else{
-            throw new UserNotFoundByEmailException("Použivateľ s emailom: " + email + " nebol najdený!");
-        }
+        return employeeRepository.findByEmail(email).orElse(null);
+//        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
+//
+//        if(employeeOptional.isPresent()){
+//            return employeeOptional.get();
+//        }else{
+//            throw new UserNotFoundByEmailException("Použivateľ s emailom: " + email + " nebol najdený!");
+//        }
     }
 
 
