@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,13 +22,13 @@ public class HourService {
     private final HoursRepository hoursRepository;
 
     public List<BasicHoursDTO> getAllHoursFromUser(String email){
-        Employee employee = employeeRepository.findByEmail(email);
+        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
-        if(employee != null){
+        if(employeeOptional.isPresent()){
 
             List<BasicHoursDTO> listOfHoursDTO = new ArrayList<>();
 
-            employee.getHours().forEach((e) ->{
+            employeeOptional.get().getHours().forEach((e) ->{
              listOfHoursDTO.add(convertToHoursToBasicHours(e));
             });
 
@@ -42,18 +43,18 @@ public class HourService {
     }
 
     public BasicHoursDTO addNewHoursToUser(BasicHoursDTO basicHoursDTO, String email){
-        Employee employee = employeeRepository.findByEmail(email);
+        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
-        if(employee != null){
+        if(employeeOptional.isPresent()){
             Hour hour = new Hour(
                     basicHoursDTO.getHours(),
                     basicHoursDTO.getPlace());
 
-            hour.setEmployee(employee);
-            employee.getHours().add(hour);
+            hour.setEmployee(employeeOptional.get());
+            employeeOptional.get().getHours().add(hour);
 
             hoursRepository.save(hour);
-            employeeRepository.save(employee);
+            employeeRepository.save(employeeOptional.get());
 
             return convertToHoursToBasicHours(hour);
 

@@ -13,6 +13,8 @@ import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class CompanyService {
@@ -71,25 +73,22 @@ public class CompanyService {
     public CompanyBasicDTO addEmployeeToCompany(String name, String email){
 
         Company company = companyRepository.findByName(name);
+        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
         if(company != null){
+            if(employeeOptional.isPresent()){
 
-            Employee employee = employeeRepository.findByEmail(email);
+                company.getListOfEmployees().add(employeeOptional.get());
 
-            if(employee != null){
-                company.getListOfEmployees().add(employee);
+                employeeOptional.get().setCompany(company);
 
-                employee.setCompany(company);
-
-                employeeRepository.save(employee);
+                employeeRepository.save(employeeOptional.get());
                 companyRepository.save(company);
 
                 return convertCompanyToCompanyBasicDTO(employerRepository.findByEmail(company.getEmployer().getEmail()), company);
-
             }else{
                 throw new UserNotFoundByEmailException("Pouzivatel s danym emailom nexxistuje! "+email);
             }
-
         }else {
             throw new CompanyDoesntExists("Firma s danym menom nexxistuje: "+name);
         }

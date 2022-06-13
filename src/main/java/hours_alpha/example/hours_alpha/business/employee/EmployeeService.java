@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -52,17 +53,13 @@ public class EmployeeService implements EntityModelService<Employee> {
     }
 
     public Employee getUserByEmail(String email) {
-        Employee employee = employeeRepository.findByEmail(email);
+        Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
-        if(employee != null){
-            return employee;
+        if(employeeOptional.isPresent()){
+            return employeeOptional.get();
         }else{
             throw new UserNotFoundByEmailException("Použivateľ s emailom: " + email + " nebol najdený!");
         }
-    }
-
-    public Employee loginGetUserByEmail(String email){
-        return employeeRepository.findByEmail(email);
     }
 
     public Employee updateEmployee(Employee employee){
