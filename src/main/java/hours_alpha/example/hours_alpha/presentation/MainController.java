@@ -1,22 +1,17 @@
 package hours_alpha.example.hours_alpha.presentation;
 
-import hours_alpha.example.hours_alpha.business.company.Company;
 import hours_alpha.example.hours_alpha.business.company.CompanyService;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.AddNewEmployeeToCompanyDTO;
-import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.companyDTO.BasicCompanyDTO;
+import hours_alpha.example.hours_alpha.business.dto.companyDTO.CompanyBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.hoursDTO.BasicHoursDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.LoginResponse;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employee.EmployeeService;
-import hours_alpha.example.hours_alpha.business.employer.Employer;
 import hours_alpha.example.hours_alpha.business.employer.EmployerService;
-import hours_alpha.example.hours_alpha.business.hour.Hour;
 import hours_alpha.example.hours_alpha.business.hour.HourService;
-import hours_alpha.example.hours_alpha.exception.CompanyDoesntExists;
-import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -83,20 +78,8 @@ public class MainController {
     @ResponseBody
     public CompanyBasicDTO showInfoAboutCompany(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        Employer employer = employerService.getUserByEmail(userDetails.getUsername());
 
-        if(employer != null)
-        {
-            Company company = companyService.getCompanyByName(employer.getCompany().getName());
-            if(company != null) {
-                return companyService.convertCompanyToCompanyBasicDTO(employer, company);
-            }else{
-              throw new CompanyDoesntExists("Tento pouzivatel firmu nema!");
-            }
-        }else{
-            throw new UserNotFoundByEmailException(
-                    "Pouzivatel nexxistuje s tymto emailom: " + userDetails.getUsername());
-        }
+        return companyService.showInfoAboutCompany(userDetails.getUsername());
     }
 
     @PutMapping(path = "/employee/addEmployeeToCompany")

@@ -27,7 +27,7 @@ public class CompanyService {
 
         if(employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null){
 
-            if(companyRepository.findByName(creationCompanyDTO.getName()) == null){
+            if(companyRepository.findByName(creationCompanyDTO.getName()).isEmpty()){
                 Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
 
                 //CREATING AND SAVING COMPANY
@@ -72,20 +72,20 @@ public class CompanyService {
 
     public CompanyBasicDTO addEmployeeToCompany(String name, String email){
 
-        Company company = companyRepository.findByName(name);
+        Optional<Company> companyOptional = companyRepository.findByName(name);
         Optional<Employee> employeeOptional = employeeRepository.findByEmail(email);
 
-        if(company != null){
+        if(companyOptional.isPresent()){
             if(employeeOptional.isPresent()){
 
-                company.getListOfEmployees().add(employeeOptional.get());
+                companyOptional.get().getListOfEmployees().add(employeeOptional.get());
 
-                employeeOptional.get().setCompany(company);
+                employeeOptional.get().setCompany(companyOptional.get());
 
                 employeeRepository.save(employeeOptional.get());
-                companyRepository.save(company);
+                companyRepository.save(companyOptional.get());
 
-                return convertCompanyToCompanyBasicDTO(employerRepository.findByEmail(company.getEmployer().getEmail()), company);
+                return convertCompanyToCompanyBasicDTO(employerRepository.findByEmail(companyOptional.get().getEmployer().getEmail()), companyOptional.get());
             }else{
                 throw new UserNotFoundByEmailException("Pouzivatel s danym emailom nexxistuje! "+email);
             }
@@ -94,13 +94,18 @@ public class CompanyService {
         }
     }
 
-    public Company getCompanyByName(String name){
-        Company company = companyRepository.findByName(name);
+    public CompanyBasicDTO showInfoAboutCompany(String email){
+        Employer employer = employerRepository.findByEmail(email);
 
-        if(company != null) {
-            return company;
+        if(employer != null){
+            Optional<Company> companyOptional = companyRepository.findByName(employer.getCompany().getName());
+            if(companyOptional.isPresent()){
+                return convertCompanyToCompanyBasicDTO(employer, companyOptional.get());
+            }else{
+                throw new CompanyDoesntExists("Firma nexxstiuje");
+            }
         }else{
-            throw new CompanyDoesntExists("Firma s menom "+name+" nexxistuje");
+            throw new UserNotFoundByEmailException("Uzivatel s menom nexxistuje");
         }
     }
 
