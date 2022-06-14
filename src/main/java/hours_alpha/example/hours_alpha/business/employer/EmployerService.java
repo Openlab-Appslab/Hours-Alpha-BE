@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class  EmployerService implements EntityModelService<Employer> {
@@ -17,12 +19,9 @@ public class  EmployerService implements EntityModelService<Employer> {
     private final PasswordEncoder passwordEncoder;
 
     public Employer getUserByEmail(String email) {
-        return employerRepository.findByEmail(email);
+        return employerRepository.findByEmail(email).orElse(null);
     }
 
-    public Employer loginGetUserByEmail(String email){
-        return employerRepository.findByEmail(email);
-    }
 
     public UserBasicDTO addNewEmployer(UserRegistrationDTO employerDTO){
 

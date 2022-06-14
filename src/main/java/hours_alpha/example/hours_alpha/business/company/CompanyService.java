@@ -25,24 +25,26 @@ public class CompanyService {
 
     public CompanyBasicDTO createCompany(BasicCompanyDTO creationCompanyDTO){
 
-        if(employerRepository.findByEmail(creationCompanyDTO.getEmail()) != null){
+        Optional<Employer> employerOptional = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+
+        if(employerOptional.isPresent()){
 
             if(companyRepository.findByName(creationCompanyDTO.getName()).isEmpty()){
-                Employer employer = employerRepository.findByEmail(creationCompanyDTO.getEmail());
+
 
                 //CREATING AND SAVING COMPANY
                 Company company = new Company(
                         creationCompanyDTO.getName(),
                         creationCompanyDTO.getIco(),
-                        employer
+                        employerOptional.get()
                 );
                 companyRepository.save(company);
 
                 //SAVING COMPANY TO EMPLOYER
-                employer.setCompany(company);
-                employerRepository.save(employer);
+                employerOptional.get().setCompany(company);
+                employerRepository.save(employerOptional.get());
 
-                return convertCompanyToCompanyBasicDTO(employer, company);
+                return convertCompanyToCompanyBasicDTO(employerOptional.get(), company);
 
             }else{
                 throw new CompanyDoesntExists("Firma s týmto menom nexxistuje! Meno: "+creationCompanyDTO.getName()); //EXC
@@ -77,15 +79,20 @@ public class CompanyService {
 
         if(companyOptional.isPresent()){
             if(employeeOptional.isPresent()){
+            Optional<Employer> employerOptional = employerRepository.findByEmail(email);
 
+            if(employerOptional.isPresent()){
                 companyOptional.get().getListOfEmployees().add(employeeOptional.get());
 
                 employeeOptional.get().setCompany(companyOptional.get());
 
                 employeeRepository.save(employeeOptional.get());
                 companyRepository.save(companyOptional.get());
+                return convertCompanyToCompanyBasicDTO(employerOptional.get(), companyOptional.get());
+            }else{
+                throw new UserNotFoundByEmailException("Employer nebol najdeny");
+            }
 
-                return convertCompanyToCompanyBasicDTO(employerRepository.findByEmail(companyOptional.get().getEmployer().getEmail()), companyOptional.get());
             }else{
                 throw new UserNotFoundByEmailException("Pouzivatel s danym emailom nexxistuje! "+email);
             }
@@ -95,12 +102,12 @@ public class CompanyService {
     }
 
     public CompanyBasicDTO showInfoAboutCompany(String email){
-        Employer employer = employerRepository.findByEmail(email);
+        Optional<Employer> employerOptional = employerRepository.findByEmail(email);
 
-        if(employer != null){
-            Optional<Company> companyOptional = companyRepository.findByName(employer.getCompany().getName());
+        if(employerOptional.isPresent()){
+            Optional<Company> companyOptional = companyRepository.findByName(employerOptional.get().getCompany().getName());
             if(companyOptional.isPresent()){
-                return convertCompanyToCompanyBasicDTO(employer, companyOptional.get());
+                return convertCompanyToCompanyBasicDTO(employerOptional.get(), companyOptional.get());
             }else{
                 throw new CompanyDoesntExists("Firma nexxstiuje");
             }
