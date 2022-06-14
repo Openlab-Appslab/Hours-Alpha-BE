@@ -21,15 +21,15 @@ public class Hour {
     private Long id;
     private Integer sumOfHour;
     private String place;
-    //private LocalDate dateOfDay;
+    private String date;
 
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
 
-    public Hour(Integer sumOfHour, String place) {
+    public Hour(Integer sumOfHour, String place, String date) {
         this.sumOfHour = sumOfHour;
         this.place = place;
-        //this.dateOfDay = dateOfDay;
+        this.date = date;
     }
 }

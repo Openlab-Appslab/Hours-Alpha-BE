@@ -1,4 +1,4 @@
-package hours_alpha.example.hours_alpha.dataAccess.employer;
+package hours_alpha.example.hours_alpha.dataAccess;
 
 import hours_alpha.example.hours_alpha.business.employee.Employee;
 import hours_alpha.example.hours_alpha.business.employer.Employer;

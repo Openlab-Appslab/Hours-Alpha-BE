@@ -1,4 +1,4 @@
-package hours_alpha.example.hours_alpha.dataAccess.company;
+package hours_alpha.example.hours_alpha.dataAccess;
 
 import hours_alpha.example.hours_alpha.business.company.Company;
 import org.springframework.data.jpa.repository.JpaRepository;

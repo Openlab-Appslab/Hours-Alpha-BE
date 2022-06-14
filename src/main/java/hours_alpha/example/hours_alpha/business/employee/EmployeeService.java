@@ -3,14 +3,12 @@ package hours_alpha.example.hours_alpha.business.employee;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserRegistrationDTO;
 import hours_alpha.example.hours_alpha.business.dto.userDTO.UserBasicDTO;
 import hours_alpha.example.hours_alpha.business.entity.EntityModelService;
-import hours_alpha.example.hours_alpha.dataAccess.employee.EmployeeRepository;
-import hours_alpha.example.hours_alpha.exception.UserNotFoundByEmailException;
+import hours_alpha.example.hours_alpha.dataAccess.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

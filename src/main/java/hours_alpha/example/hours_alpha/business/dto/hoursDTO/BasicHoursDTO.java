@@ -13,8 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BasicHoursDTO {
 
-    private Long id;
-    private Integer hours;
-    private String place;
-    //private LocalDate dateOfDay;
+    private Integer numberOfHours;
+    private String workPlace;
+    private String todaysDate;
 }
