@@ -18,6 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Basic;
 import java.util.List;
 
 @RestController
@@ -92,8 +93,8 @@ public class MainController {
     //HOURS PART
     ////////////////////////////////
 
-    @PostMapping(path = "/employee/addWorkInfo")
-    public BasicHoursDTO addWorkInfoToEmployee(@RequestBody BasicHoursDTO basicHoursDTO, Authentication authentication){
+    @PostMapping(path = "/employee/addWorkInfo/{basicHoursDTO}")
+    public BasicHoursDTO addWorkInfoToEmployee(@PathVariable BasicHoursDTO basicHoursDTO, Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return hourService.addNewHoursToUser(basicHoursDTO, userDetails.getUsername());
     }
